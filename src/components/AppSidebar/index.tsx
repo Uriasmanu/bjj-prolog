@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react"
+import { Award, Calendar, LayoutPanelLeft, Swords, Webhook } from "lucide-react"
 
 import {
   Sidebar,
@@ -14,29 +14,29 @@ import {
 // Menu items.
 const items = [
   {
-    title: "Home",
-    url: "#",
-    icon: Home,
+    title: "Inicio",
+    url: "/",
+    icon: LayoutPanelLeft,
   },
   {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Calendar",
-    url: "#",
+    title: "Aulas",
+    url: "/Aulas",
     icon: Calendar,
   },
   {
-    title: "Search",
+    title: "Drills",
     url: "#",
-    icon: Search,
+    icon: Webhook,
   },
   {
-    title: "Settings",
+    title: "Sparrings",
     url: "#",
-    icon: Settings,
+    icon: Swords,
+  },
+  {
+    title: "Notas técnicas",
+    url: "#",
+    icon: Award,
   },
 ]
 
@@ -45,7 +45,7 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupLabel></SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
