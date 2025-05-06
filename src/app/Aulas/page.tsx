@@ -29,19 +29,22 @@ import Image from "next/image"
 import { useState } from "react"
 
 const formSchema = z.object({
-    username: z.string().min(2, {
-        message: "Username must be at least 2 characters.",
+    tecnica: z.string().min(2, {
+        message: "Selecione uma técnica.",
     }),
     dob: z.date({
-        required_error: "Date of birth is required.",
+        required_error: "Selecione uma data válida.",
     }),
+    dificuldade: z.string().min(2, {
+        message: "Selecione a dificuldade.",
+      }),
 })
 
 export default function Aulas() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            username: "",
+            tecnica: "",
             dob: new Date(),
         },
     })
@@ -70,8 +73,6 @@ export default function Aulas() {
                 return finalizacao;
             case 'fisico':
                 return fisico;
-            case 'dill':
-                return drill;
             default:
                 return drill;
         }
@@ -130,17 +131,22 @@ export default function Aulas() {
 
                             <FormField
                                 control={form.control}
-                                name="username"
+                                name="tecnica"
                                 render={({ field }) => (
                                     <FormItem className="flex flex-col items-start">
-                                        <Select onValueChange={handleTecnicaChange}>
+                                        <Select onValueChange={(value) => {
+                                            field.onChange(value)
+                                            setTecnica(value)
+                                        }}
+                                            value={field.value}
+                                        >
                                             <SelectTrigger className="w-[180px]">
                                                 <SelectValue placeholder="Tecnica" />
                                             </SelectTrigger>
                                             <SelectContent>
                                                 <SelectItem value="garda">Guarda</SelectItem>
                                                 <SelectItem value="raspagem">Raspagem</SelectItem>
-                                                <SelectItem value="finalização">Finalização</SelectItem>
+                                                <SelectItem value="finalizacao">Finalização</SelectItem>
                                                 <SelectItem value="drill">Drill</SelectItem>
                                                 <SelectItem value="fisico">Fisico</SelectItem>
                                             </SelectContent>
@@ -157,10 +163,13 @@ export default function Aulas() {
 
                             <FormField
                                 control={form.control}
-                                name="username"
+                                name="dificuldade"
                                 render={({ field }) => (
                                     <FormItem className="flex flex-col items-start">
-                                        <Select>
+                                        <Select
+                                            onValueChange={field.onChange}
+                                            value={field.value}
+                                        >
                                             <SelectTrigger className="w-[180px]">
                                                 <SelectValue placeholder="Dificuldade" />
                                             </SelectTrigger>
