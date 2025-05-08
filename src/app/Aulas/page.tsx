@@ -29,22 +29,22 @@ import Image from "next/image"
 import { useState } from "react"
 
 const formSchema = z.object({
-    tecnica: z.string().min(2, {
-        message: "Selecione uma técnica.",
+    tecnica: z.enum(["guarda", "raspagem", "finalizacao", "drill", "fisico"], {
+        errorMap: () => ({ message: "Selecione uma técnica válida" })
     }),
     dob: z.date({
         required_error: "Selecione uma data válida.",
     }),
-    dificuldade: z.string().min(2, {
-        message: "Selecione a dificuldade.",
-      }),
+    dificuldade: z.enum(["facil", "medio", "dificil"], {
+        errorMap: () => ({ message: "Selecione a dificuldade." })
+    }),
 })
 
 export default function Aulas() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            tecnica: "",
+            tecnica: "guarda", 
             dob: new Date(),
         },
     })
