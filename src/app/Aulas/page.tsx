@@ -30,13 +30,13 @@ import { useState } from "react"
 
 const formSchema = z.object({
     tecnica: z.enum(["guarda", "raspagem", "finalizacao", "drill", "fisico"], {
-        errorMap: () => ({ message: "Selecione uma técnica válida" })
+        errorMap: () => ({ message: "Selecione a tecnica que foi trabalhada na aula" })
     }),
     dob: z.date({
         required_error: "Selecione uma data válida.",
     }),
     dificuldade: z.enum(["facil", "medio", "dificil"], {
-        errorMap: () => ({ message: "Selecione a dificuldade." })
+        errorMap: () => ({ message: "Selecione a dificuldade que sentiu ao realizar a tarefa." })
     }),
 })
 
@@ -52,11 +52,6 @@ export default function Aulas() {
     // 2. Define a submit handler.
     function onSubmit(values: z.infer<typeof formSchema>) {
         console.log(values) // Handle form submission
-    }
-
-    // Função para alterar a técnica com base no valor selecionado
-    const handleTecnicaChange = (value: string) => {
-        setTecnica(value);
     }
 
     // Estado para controlar a técnica selecionada
