@@ -1,17 +1,22 @@
 'use client'
 
 import { Calendar } from "@/components/ui/calendar";
+import { Separator } from "@/components/ui/separator";
+import { isSameDay } from "date-fns";
 import { useState } from "react";
 
 
+
 export default function Home() {
-  const [date, setDate] = useState<Date | undefined > (new Date());
+  const [date, setDate] = useState<Date | undefined>(new Date());
 
   const treinoDays = [
-    new Date(2025, 4, 1),  
-    new Date(2025, 4, 15), 
-    new Date(2025, 4, 10)  
+    { date: new Date(2025, 4, 15), tecnica: 'raspagem', dificuldade: 'media' },
+
   ];
+
+  const treinoDates = treinoDays.map(t => t.date);
+  const treinoSelecionado = treinoDays.find(t => date && isSameDay(t.date, date));
 
   return (
     <div className="flex flex-col p-12 gap-12 h-full w-full box-border">
@@ -22,12 +27,13 @@ export default function Home() {
       <main className="flex flex-col sm:flex-row gap-6">
         <div className="flex flex-col gap-3">
           <h2 className="text-1xl font-bold">Frequência de treino</h2>
+
           <Calendar
             mode="single"
             selected={date}
             onSelect={setDate}
             modifiers={{
-              treino: treinoDays
+              treino: treinoDates
             }}
             modifiersStyles={{
               treino: {
@@ -37,7 +43,19 @@ export default function Home() {
               }
             }}
             className="rounded-md border"
+
+
           />
+          <Separator className="my-4" />
+          {treinoSelecionado ? (
+            <div className="text-sm text-gray-700">
+              <p><strong>Técnica:</strong> {treinoSelecionado.tecnica}</p>
+              <p><strong>Dificuldade:</strong> {treinoSelecionado.dificuldade}</p>
+            </div>
+          ) : (
+            <p className="text-sm text-gray-500">Nenhum treino registrado nesse dia.</p>
+          )}
+
         </div>
         <h2>Avaliação dos 3 pilares (técnico, físico, mental)</h2>
         <h2>Gráficos de evolução (mensal, semanal)</h2>
