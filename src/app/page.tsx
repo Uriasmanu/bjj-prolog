@@ -3,6 +3,7 @@
 import { Calendar } from "@/components/ui/calendar";
 import { Separator } from "@/components/ui/separator";
 import { isSameDay } from "date-fns";
+import { Award, BicepsFlexed, Podcast } from "lucide-react";
 import { useState } from "react";
 
 
@@ -26,7 +27,7 @@ export default function Home() {
 
       <main className="flex flex-col sm:flex-row gap-6">
         <div className="flex flex-col gap-3">
-          <h2 className="text-1xl font-bold">Frequência de treino</h2>
+          <h2 className="text-2xl font-bold">Frequência de treino</h2>
 
           <Calendar
             mode="single"
@@ -57,11 +58,73 @@ export default function Home() {
           )}
 
         </div>
-        <h2>Avaliação dos 3 pilares (técnico, físico, mental)</h2>
-        <h2>Gráficos de evolução (mensal, semanal)</h2>
+        <section className="flex flex-col">
+          <h2 className="text-2xl font-bold">Avaliação dos 3 pilares (técnico, físico, mental)</h2>
+
+          <div className="flex flex-col gap-2 my-2">
+
+            <div className="flex gap-3 bg-amber-200 w-auto h-[8rem] p-6 rounded-2xl  items-center shadow-lg">
+
+              <div className="flex flex-col gap-3">
+                <h3 className="flex text-1xl font-bold gap-3">
+                  <Award />
+                  Pilar Tecnico
+                </h3>
+
+                <p className="w-[90%] sm:w-[70%] text-[14px]">
+                  Avaliação do desempenho técnico avaliado de 0 a 10 nos ultimo 30 dia.
+                </p>
+              </div>
+
+              <div className="flex items-center justify-center p-1 w-[34px] h-[34px] sm:w-[54px] sm:h-[54px] border border-black rounded-full">
+                3.5
+              </div>
+            </div>
+
+            <div className="flex gap-3 bg-amber-200 w-auto h-[8rem] p-6 rounded-2xl  items-center shadow-lg">
+
+              <div className="flex flex-col gap-3">
+                <h3 className="flex text-1xl font-bold gap-3">
+                  <BicepsFlexed />
+                  Pilar Fisico
+                </h3>
+               
+                <p className="w-[90%] sm:w-[70%] text-[14px]">
+                  Avaliação do desempenho técnico avaliado de 0 a 10 nos ultimo 30 dia.
+                </p>
+              </div>
+
+              <div className="flex items-center justify-center p-1 w-[34px] h-[34px] sm:w-[54px] sm:h-[54px] border border-black rounded-full">
+                4.5
+              </div>
+            </div>
+
+            <div className="flex gap-3 bg-amber-200 w-auto h-[8rem] p-6 rounded-2xl  items-center shadow-lg">
+
+              <div className="flex flex-col gap-3">
+                <h3 className="flex text-1xl font-bold gap-3">
+                  <Podcast />
+                  Pilar Mental
+                </h3>
+               
+                <p className="w-[90%] sm:w-[70%] text-[14px]">
+                  Avaliação do desempenho técnico avaliado de 0 a 10 nos ultimo 30 dia.
+                </p>
+              </div>
+
+              <div className="flex items-center justify-center p-1 w-[34px] h-[34px] sm:w-[54px] sm:h-[54px] border border-black rounded-full">
+                9.0
+              </div>
+            </div>
+
+          </div>
+        </section>
+
         <h2>Histórico técnico (por tipo de técnica)</h2>
       </main>
-
+      <section>
+        <h2>Gráficos de evolução (mensal, semanal)</h2>
+      </section>
     </div>
   );
 }

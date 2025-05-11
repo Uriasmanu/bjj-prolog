@@ -27,6 +27,9 @@ import guarda from '../../../public/img/guarda.jpg'
 import raspagem from '../../../public/img/raspagem.jpg'
 import Image from "next/image"
 import { useState } from "react"
+import { enviarAula } from "@/hooks/enviarAula"
+
+
 
 const formSchema = z.object({
     tecnica: z.enum(["guarda", "raspagem", "finalizacao", "drill", "fisico"], {
@@ -35,7 +38,7 @@ const formSchema = z.object({
     dob: z.date({
         required_error: "Selecione uma data válida.",
     }),
-    dificuldade: z.enum(["facil", "medio", "dificil"], {
+    dificuldade: z.enum(["facil", "media", "dificil"], {
         errorMap: () => ({ message: "Selecione a dificuldade que sentiu ao realizar a tarefa." })
     }),
 })
@@ -44,14 +47,20 @@ export default function Aulas() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            tecnica: "guarda", 
+            tecnica: "guarda",
             dob: new Date(),
         },
     })
 
     // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values) // Handle form submission
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        try {
+            await enviarAula(values.dob, values.tecnica, values.dificuldade)
+            alert("Sucesso")
+        } catch (error) {
+            console.error(error);
+            alert("erro")
+        }
     }
 
     // Estado para controlar a técnica selecionada
@@ -139,7 +148,7 @@ export default function Aulas() {
                                                 <SelectValue placeholder="Tecnica" />
                                             </SelectTrigger>
                                             <SelectContent>
-                                                <SelectItem value="garda">Guarda</SelectItem>
+                                                <SelectItem value="guarda">Guarda</SelectItem>
                                                 <SelectItem value="raspagem">Raspagem</SelectItem>
                                                 <SelectItem value="finalizacao">Finalização</SelectItem>
                                                 <SelectItem value="drill">Drill</SelectItem>
@@ -170,7 +179,7 @@ export default function Aulas() {
                                             </SelectTrigger>
                                             <SelectContent>
                                                 <SelectItem value="facil">Facil</SelectItem>
-                                                <SelectItem value="medio">Medio</SelectItem>
+                                                <SelectItem value="media">Media</SelectItem>
                                                 <SelectItem value="dificil">Dificil</SelectItem>
                                             </SelectContent>
                                         </Select>

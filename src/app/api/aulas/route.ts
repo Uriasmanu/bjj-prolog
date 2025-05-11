@@ -22,8 +22,9 @@ export async function POST(req: Request) {
                 data: new Date(dados.data),
                 tecnica: dados.tecnica,
                 dificuldade: dados.dificuldade,
-            }
-        })
+            },
+        });
+
 
         return NextResponse.json(novaAula);
     } catch (error) {

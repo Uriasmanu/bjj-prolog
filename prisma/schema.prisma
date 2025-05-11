@@ -1,6 +1,12 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"  
 }
 
 enum Dificuldade {
@@ -23,5 +29,5 @@ model Aula {
   tecnica     Tecnica
   dificuldade Dificuldade
 
-  @@map("aulas") // Opcional: se quiser manter o nome da tabela como "aulas"
+  @@map("aulas")
 }
