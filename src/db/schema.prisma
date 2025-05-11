@@ -1,0 +1,27 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Dificuldade {
+  facil
+  media
+  dificil
+}
+
+enum Tecnica {
+  guarda
+  raspagem
+  finalizacao
+  drill
+  fisico
+}
+
+model Aula {
+  id          Int        @id @default(autoincrement())
+  data        DateTime
+  tecnica     Tecnica
+  dificuldade Dificuldade
+
+  @@map("aulas") // Opcional: se quiser manter o nome da tabela como "aulas"
+}
